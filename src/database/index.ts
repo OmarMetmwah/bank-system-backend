@@ -1,10 +1,12 @@
 import { Pool } from 'pg';
 import config from '../config';
 
-const connectionString = config.dbURL
-
 const pool = new Pool({
-	connectionString
+	host: config.host,
+	database: config.db,
+	user: config.user,
+	password: config.password,
+	port: parseInt(config.dbport as string),
 });
 
 export default pool;
