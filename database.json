@@ -6,7 +6,8 @@
         "port":{"ENV":"PG_PORT"},
         "database":{"ENV":"PG_DB"},
         "user":{"ENV":"PG_USER"},
-        "password":{"ENV":"PG_PASSWORD"}
+        "password":{"ENV":"PG_PASSWORD"},
+        "ssl":"true"
     },
     "test":{
         "driver":"pg",
