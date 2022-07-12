@@ -7,6 +7,9 @@ const pool = new Pool({
 	user: config.user,
 	password: config.password,
 	port: parseInt(config.dbport as string),
+	ssl: {
+		rejectUnauthorized: false
+	  }
 });
 
 export default pool;
