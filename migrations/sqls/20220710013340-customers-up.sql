@@ -1,5 +1,5 @@
 -- CREATE TABLE
-CREATE TABLE customers(
+CREATE TABLE IF NOT EXISTS customers (
     "name" VARCHAR(50) NOT NULL UNIQUE PRIMARY KEY,
     email VARCHAR(50) UNIQUE,
     lastTransaction TIMESTAMP,
