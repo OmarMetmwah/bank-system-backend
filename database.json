@@ -7,7 +7,7 @@
         "database":{"ENV":"PG_DB"},
         "user":{"ENV":"PG_USER"},
         "password":{"ENV":"PG_PASSWORD"},
-        "ssl":"true"
+        "ssl":"false"
     },
     "test":{
         "driver":"pg",
