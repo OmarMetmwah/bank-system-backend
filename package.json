@@ -5,14 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node build/.",
-    "build": "npx tsc",
+    "build": "tsc",
     "dev": "nodemon src/index.ts",
     "prettier": "prettier --config .prettierrc.yaml src/**/*.ts --write",
     "lint": "eslint . --ext .ts",
     "format": "npm run prettier && npm run lint",
     "migu": "db-migrate up",
-    "migr": "db-migrate reset",
-    "heroku-postbuild": "npm run migu"
+    "migr": "db-migrate reset"
   },
   "author": "",
   "license": "ISC",
