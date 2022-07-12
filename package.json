@@ -4,7 +4,7 @@
   "description": "## Getting Started",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build && node build/.",
+    "start": "node build/.",
     "build": "tsc",
     "dev": "nodemon src/index.ts",
     "prettier": "prettier --config .prettierrc.yaml src/**/*.ts --write",
