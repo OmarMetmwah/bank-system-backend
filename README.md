@@ -1,8 +1,65 @@
-# Udacity: Build A Storefront Backend
+Made By:
 
-This is a backend API build in Nodejs for an online store. It exposes a RESTful API that will be used by the frontend developer on the frontend. 
+## **Omar Metmwah**
 
-The database schema and and API route information can be found in the [REQUIREMENT.md](REQUIREMENTS.md) 
+as a task for **TSF GRIP**:
+
+## The Sparks Foundation
+
+## Graduate Rotational Internship Program
+
+Link Of The Website:
+
+[https://metmwah-bank-system.herokuapp.com]("https://metmwah-bank-system.herokuapp.com")
+
+
+Link Of The Internship:
+
+[https://internship.thesparksfoundation.info/#steps-to-apply]("https://internship.thesparksfoundation.info/#steps-to-apply")
+
+
+## Task Requirements
+
+- Create a simple dynamic website for a Basic Banking System.
+- Creating a dummy data in database for upto 10 customers.
+- Customers table will have basic fields such as name, email, current balance etc..
+- Transfers table will record all transfers
+- No Login Page. No User Creation. Only transfer of money between multiple users.
+- Host the website at 000webhost, github.io, heroku app or any other free hosting provider.
+
+# API Requirements
+The company stakeholders want to create an online storefront to showcase their great product ideas. Users need to be able to browse an index of all products, see the specifics of a single product, and add products to an order that they can view in a cart page. You have been tasked with building the API that will support this application, and your coworker is building the frontend.
+
+These are the notes from a meeting with the frontend developer that describe what endpoints the API needs to supply, as well as data shapes the frontend and backend have agreed meet the requirements of the application. 
+
+## API Endpoints
+#### Transactions
+- List `/transactions` [GET]
+- Make Transaction `/transactions` [POST]
+#### Customers
+- List `/customers` [GET]
+- Create `/customers` [POST] 
+- History `/customers/:name` [GET]
+
+## Data Shapes
+#### Transactions
+Table: *transactions*
+- id `SERIAL PRIMARY KEY`
+- sender `VARCHAR` NOT NULL REFERENCES customers("name")
+- reciever `VARCHAR` NOT NULL REFERENCES customers("name")
+- timing `TIMESTAMP`
+- amount `INTEGER`
+
+
+
+#### User
+Table: *users*
+- name `VARCHAR` UNIQUE PRIMARY KEY
+- email `VARCHAR` UNIQUE
+- password `VARCHAR`
+- lastTransaction `TIMESTAMP`
+- currentBalance INTEGER NOT NULL, constraint balance_nonnegative check (currentBalance >= 0)
+
 
 ## Installation Instructions
 This section contains all the packages used in this project and how to install them. However, you can fork this repo and run the following command at the root directory to install all packages.
@@ -27,112 +84,5 @@ Here are some of the few packages that were installed.
 `npm i cors`
 `npm i --save-dev @types/cors`
 
-#### bcrypt
-`npm i bcrypt`
-`npm i --save-dev @types/bcrypt`
-
-#### jsonwebtoken
-`npm i jsonwebtoken`
-`npm i --save-dev @types/jsonwebtoken`
-
 #### dotenv
 `npm i dotenv`
-
-#### jasmine
-`npm i --save-dev jasmine`
-`npm i --save-dev @types/jasmine`
-#### supertest
-`npm i supertest`
-`npm i --save-dev @types/supertest`
-
-## Set up Database
-### Create Databases
-We shall create the dev and test database.
-
-- connect to the default postgres database as the server's root user `psql -U postgres`
-- In psql run the following to create a user 
-    - `CREATE USER postgres WITH PASSWORD '########';`
-- In psql run the following to create the dev and test database
-    - `CREATE DATABASE store_dev;`
-    - `CREATE DATABASE store_test;`
-    
-
-### Migrate Database
-Navigate to the root directory and run the command below to migrate the database 
-
-`npx db-migrate create name`
-
-!['migrate up database'](./docs/migrate_up.png)
-
-
-!['migrate reset database'](./docs/migrate_reset.png)
-
-## Enviromental Variables Set up
-Bellow are the environmental variables that needs to be set in a `.env` file. This is the default setting that I used for development, but you can change it to what works for you. 
-
-**NB:** The given values are used in developement and testing but not in production. 
-```
-PORT = 3000
-
-ENV = dev
-
-# database connection info.
-PG_HOST = localhost
-PG_PORT = 5432
-PG_DB = store_dev
-PG_DB_TEST = store_test
-PG_USER = ##########
-PG_PASSWORD = ############
-
-BCRYPT = ###########
-SALT_ROUNDS = 10
-
-TOKEN_SECRET = ################
-```
-
-## Start App
-`yarn watch` or `npm run watch`
-
-!['start server'](./docs/start.png)
-
-### Running Ports 
-After start up, the server will start on port `3000` and the database on port `5432`
-
-## Endpoint Access
-All endpoints are described in the [REQUIREMENT.md](REQUIREMENTS.md) file. 
-
-## Token and Authentication
-Tokens are passed along with the http header as 
-```
-Authorization   Bearer <token>
-```
-
-## Testing
-Run test with 
-
-`yarn test`
-
-It sets the environment to `test`, migrates up tables for the test database, run the test then migrate down all the tables for the test database. 
-
-!['test 1'](docs/test1.png)
-!['test 2'](docs/test2.png)
-
-
-## Important Notes 
-
-### Environment Variables
-Environment variables are set in the `.env` file and added in `.gitignore` so that it won't be added to github. However, I had provided the names of the variables that need to be set above. I also provided some values that were used in development and testing. 
-
-
-### Changing Enviroment to testing 
-I had set up two databases, one for development and the other for testing. During testing, I had to make sure the testing database is used instead of the developement database. 
-
-To acheive this, I set up a variable in the `.env` file which is by default set to `dev`. During testing, the command `npm run test` will set this variable to `test` in the package.json. Here is the complete command.
-`set ENV=test && tsc && db-migrate --env test  up && tsc && jasmine || db-migrate --env test reset`
-and I also made another script for linux system as "set" command there is called "export" 
-
-The first command migrates all tables then the second command changes the enviroment variable `ENV` to testing, then the jasmine is run and then after testing, the database is reset. 
-
-### There are scripts in the pakage.json file that will help to run the project
-
-!['Scripts'](docs/scripts.png)
